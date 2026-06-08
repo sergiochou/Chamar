@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Check-in — Grupo</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+<header>
+  <h1>Check-in<span> Agápe</span></h1>
+  <div class="stats">
+    <span class="live-dot"></span>
+    <div class="stat ok"><strong id="cnt-arrived">0</strong> chegaram</div>
+    <div class="stat"><strong id="cnt-pending">0</strong> pendentes</div>
+    <div class="stat"><strong id="cnt-total">0</strong> total</div>
+    <button class="theme-toggle" id="theme-toggle" title="Alternar tema">🌙</button>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="search-wrap">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <input type="text" id="search" placeholder="Buscar nome...">
+  </div>
+  <select id="filter-equipe" class="filter-select">
+    <option value="all">Todas as Equipes</option>
+  </select>
+  <select id="filter-sala" class="filter-select">
+    <option value="all">Todas as Salas</option>
+  </select>
+  <button class="filter-btn active" data-filter="all">Todos</button>
+  <button class="filter-btn" data-filter="pending">Pendentes</button>
+  <button class="filter-btn" data-filter="arrived">Chegaram</button>
+  <button id="btn-export-pdf" class="btn-export-pdf" onclick="exportarPDF()">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17"/></svg>
+    Exportar PDF
+  </button>
+</div>
+
+<main>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome</th>
+          <th>Status</th>
+          <th class="col-med">Remédio</th>
+          <th class="col-accom">Acomodação</th>
+          <th class="col-baggage">Bagagem</th>
+          <th>Hora</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+  </div>
+  <div class="empty-state" id="empty-state" style="display:none">Nenhum participante encontrado.</div>
+</main>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h2>Confirmar chegada</h2>
+    <div class="modal-name" id="modal-name"></div>
+
+    <div class="field-group">
+      <label>Toma remédio?</label>
+      <div class="radio-group">
+        <div class="radio-opt" data-field="med" data-val="nao" onclick="selectOpt(this)">Não</div>
+        <div class="radio-opt" data-field="med" data-val="sim" onclick="selectOpt(this)">Sim</div>
+      </div>
+      <input type="text" class="field-text" id="med-name" placeholder="Qual remédio?" style="display:none">
+    </div>
+
+    <div class="field-group">
+      <label>Acomodação</label>
+      <div class="radio-group">
+        <div class="radio-opt" data-field="accom" data-val="colchao" onclick="selectOpt(this)">Trouxe colchão</div>
+        <div class="radio-opt" data-field="accom" data-val="dividir" onclick="selectOpt(this)">Vai dividir</div>
+      </div>
+      <input type="text" class="field-text" id="accom-name" placeholder="Com quem vai dividir?" style="display:none">
+      <input type="text" class="field-text" id="colchao-obs" placeholder="Características do colchão (ex: solteiro, inflável...)" style="display:none">
+    </div>
+
+    <div class="field-group">
+      <label>Mala (Qtd e Cor)</label>
+      <input type="text" class="field-text" id="mala-obs" placeholder="Ex: 1 azul grande, 2 mochilas...">
+    </div>
+
+    <div class="field-group">
+      <label>Objeto de valor?</label>
+      <div class="radio-group">
+        <div class="radio-opt" data-field="valuable" data-val="nao" onclick="selectOpt(this)">Não</div>
+        <div class="radio-opt" data-field="valuable" data-val="sim" onclick="selectOpt(this)">Sim</div>
+      </div>
+      <input type="text" class="field-text" id="valuable-name" placeholder="Qual objeto?" style="display:none">
+    </div>
+
+    <div class="field-group">
+      <label>Travesseiro?</label>
+      <div class="radio-group">
+        <div class="radio-opt" data-field="pillow" data-val="nao" onclick="selectOpt(this)">Não</div>
+        <div class="radio-opt" data-field="pillow" data-val="sim" onclick="selectOpt(this)">Sim</div>
+      </div>
+      <input type="number" class="field-text" id="pillow-count" placeholder="Quantos?" style="display:none" min="1">
+    </div>
+
+    <div class="field-group">
+      <label>Total de volumes</label>
+      <input type="number" class="field-text" id="total-volumes" placeholder="Quantidade total" min="0">
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-confirm" onclick="confirmCheckin()">Confirmar chegada ✓</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
