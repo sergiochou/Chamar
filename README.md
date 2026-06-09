@@ -1,6 +1,6 @@
 # Chamar 🧳⛺
 
-> Sistema web de gestão de check-in e controle de pertences para eventos e acampamentos.
+> Sistema web de gestão de check-in e controle de pertences para eventos.
 
 🌍 **[Acessar a Aplicação ao Vivo (Agape Chamar)](https://agapechamar.web.app/)**
 
@@ -12,7 +12,7 @@ O uso de formulários convencionais tornava a busca por características especí
 
 ## 💡 A Solução
 
-O **Chamar** foi desenvolvido para substituir a dependência de planilhas e formulários estáticos por uma aplicação web centralizada e dinâmica. O sistema permite que qualquer membro da equipe acesse os dados, realize buscas rápidas de participantes e gerencie o fluxo de chegada de forma eficiente e segura, com dados sincronizados instantaneamente.
+A aplicação WEB foi desenvolvido para substituir a dependência de planilhas e formulários estáticos por uma aplicação web centralizada e dinâmica. O sistema permite que qualquer membro da equipe acesse os dados, realize buscas rápidas de participantes e gerencie o fluxo de chegada de forma eficiente e segura, com dados sincronizados instantaneamente.
 
 ## ✨ Funcionalidades
 
